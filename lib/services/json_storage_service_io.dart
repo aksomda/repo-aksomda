@@ -13,7 +13,8 @@ import 'exceptions/app_exceptions.dart';
 class JsonStorageService implements JsonBookingStorage {
   static const String _fileName = 'reservations.json';
 
-  Future<File> _getFile() async {
+  /// Retourne le fichier JSON de réservations situé dans le répertoire de documents de l'application.
+Future<File> getFile() async {
     try {
       final directory = await getApplicationDocumentsDirectory();
       return File('${directory.path}/$_fileName');
@@ -25,8 +26,9 @@ class JsonStorageService implements JsonBookingStorage {
   }
 
   @override
-  Future<void> saveBooking(Booking booking) async {
-    final file = await _getFile();
+  /// Ajoute une réservation au fichier JSON local après lecture du contenu existant.
+Future<void> saveBooking(Booking booking) async {
+    final file = await getFile();
     List<dynamic> current = [];
 
     if (await file.exists()) {
@@ -60,8 +62,9 @@ class JsonStorageService implements JsonBookingStorage {
   }
 
   @override
-  Future<List<Map<String, dynamic>>> loadBookings() async {
-    final file = await _getFile();
+  /// Charge et désérialise les réservations enregistrées dans le fichier JSON local.
+Future<List<Map<String, dynamic>>> loadBookings() async {
+    final file = await getFile();
     if (!await file.exists()) return [];
 
     try {

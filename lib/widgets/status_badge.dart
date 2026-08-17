@@ -9,7 +9,8 @@ class StatusBadge extends StatelessWidget {
   const StatusBadge({super.key, required this.status});
 
   @override
-  Widget build(BuildContext context) {
+  /// Construit le badge indiquant le statut courant du vol avec sa couleur associée.
+Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(

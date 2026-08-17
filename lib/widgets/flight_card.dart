@@ -19,7 +19,8 @@ class FlightCard extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  /// Construit la carte d'un vol avec son statut, ses informations principales et les actions disponibles.
+Widget build(BuildContext context) {
     return Card(
       clipBehavior: Clip.antiAlias,
       child: InkWell(

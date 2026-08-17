@@ -10,7 +10,8 @@ class TrackedFlightsScreen extends StatelessWidget {
   const TrackedFlightsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  /// Construit l'écran affichant les vols suivis par l'utilisateur.
+Widget build(BuildContext context) {
     final appState = context.watch<AppState>();
     final tracked = appState.trackedFlights;
 

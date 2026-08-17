@@ -12,7 +12,8 @@ class BookingsScreen extends StatelessWidget {
   const BookingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  /// Construit l'écran listant les réservations enregistrées pendant la session.
+Widget build(BuildContext context) {
     final bookings = context.watch<AppState>().bookings;
 
     return Scaffold(
@@ -47,7 +48,8 @@ class _BookingCard extends StatelessWidget {
   const _BookingCard({required this.booking});
 
   @override
-  Widget build(BuildContext context) {
+  /// Construit l'écran listant les réservations enregistrées pendant la session.
+Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Card(
       child: Padding(
@@ -112,7 +114,8 @@ class _InfoLine extends StatelessWidget {
   const _InfoLine({required this.icon, required this.label, required this.value});
 
   @override
-  Widget build(BuildContext context) {
+  /// Construit l'écran listant les réservations enregistrées pendant la session.
+Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(

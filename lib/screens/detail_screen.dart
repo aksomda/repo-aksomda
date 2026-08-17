@@ -14,7 +14,8 @@ class DetailScreen extends StatelessWidget {
   const DetailScreen({super.key, required this.flightId});
 
   @override
-  Widget build(BuildContext context) {
+  /// Construit l'écran présentant les informations détaillées d'un vol sélectionné.
+Widget build(BuildContext context) {
     final appState = context.watch<AppState>();
     final flight = appState.flightById(flightId);
 
@@ -151,7 +152,8 @@ class _InfoRow extends StatelessWidget {
   const _InfoRow({required this.icon, required this.label, required this.value});
 
   @override
-  Widget build(BuildContext context) {
+  /// Construit l'écran présentant les informations détaillées d'un vol sélectionné.
+Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Row(

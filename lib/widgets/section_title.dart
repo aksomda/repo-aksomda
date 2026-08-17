@@ -9,7 +9,8 @@ class SectionTitle extends StatelessWidget {
   const SectionTitle({super.key, required this.title, this.icon});
 
   @override
-  Widget build(BuildContext context) {
+  /// Construit un titre de section avec une icône optionnelle et le style du thème courant.
+Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.only(top: 20, bottom: 8),

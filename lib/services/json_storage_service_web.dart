@@ -17,7 +17,8 @@ class JsonStorageService implements JsonBookingStorage {
   static const String _storageKey = 'donsin_airport_reservations';
 
   @override
-  Future<void> saveBooking(Booking booking) async {
+  /// Enregistre une réservation dans le localStorage du navigateur sous forme de JSON.
+Future<void> saveBooking(Booking booking) async {
     try {
       final current = await loadBookings();
       current.insert(0, {
@@ -37,7 +38,8 @@ class JsonStorageService implements JsonBookingStorage {
   }
 
   @override
-  Future<List<Map<String, dynamic>>> loadBookings() async {
+  /// Charge et désérialise les réservations conservées dans le localStorage du navigateur.
+Future<List<Map<String, dynamic>>> loadBookings() async {
     final raw = html.window.localStorage[_storageKey];
     if (raw == null || raw.trim().isEmpty) return [];
 

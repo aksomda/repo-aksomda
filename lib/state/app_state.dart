@@ -43,15 +43,18 @@ class AppState extends ChangeNotifier {
 
   List<Booking> get bookings => List.unmodifiable(_bookings);
 
-  void toggleTheme() {
+  /// Bascule entre le thème clair et le thème sombre puis notifie les widgets abonnés.
+void toggleTheme() {
     _themeMode =
         _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
     notifyListeners();
   }
 
-  bool isTracked(String id) => _trackedIds.contains(id);
+  /// Indique si le vol identifié par [id] figure actuellement parmi les vols suivis.
+bool isTracked(String id) => _trackedIds.contains(id);
 
-  void toggleTracked(String id) {
+  /// Ajoute ou retire un vol de la liste des vols suivis et notifie les widgets abonnés.
+void toggleTracked(String id) {
     if (_trackedIds.contains(id)) {
       _trackedIds.remove(id);
     } else {
@@ -60,7 +63,8 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Flight? flightById(String id) {
+  /// Recherche un vol par son identifiant et retourne `null` s'il est introuvable.
+Flight? flightById(String id) {
     try {
       return allFlights.firstWhere((f) => f.id == id);
     } catch (_) {
@@ -78,7 +82,7 @@ class AppState extends ChangeNotifier {
   /// Retourne un [BookingSaveResult] détaillant le succès ou l'échec de
   /// chaque canal de sauvegarde, avec des exceptions personnalisées
   /// ([AppException]) portant un message compréhensible par l'utilisateur.
-  Future<BookingSaveResult> addBooking(Booking booking) async {
+Future<BookingSaveResult> addBooking(Booking booking) async {
     _bookings.insert(0, booking);
     notifyListeners();
 
@@ -105,7 +109,8 @@ class AppState extends ChangeNotifier {
   }
 
   @override
-  void dispose() {
+  /// Libère les ressources associées au service de persistance avant la destruction de l'état global.
+void dispose() {
     _databaseStorage.close();
     super.dispose();
   }

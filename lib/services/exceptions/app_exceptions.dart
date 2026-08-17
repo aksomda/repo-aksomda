@@ -10,6 +10,7 @@ abstract class AppException implements Exception {
 
   const AppException(this.message, [this.technicalDetails]);
 
+  /// Retourne le message utilisateur associé à l'exception.
   @override
   String toString() => message;
 }

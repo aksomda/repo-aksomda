@@ -38,13 +38,14 @@ class MySqlConfig {
 /// au préalable sur le serveur.
 class MySqlService implements DatabaseBookingStorage {
   final MySqlConfig config;
-  MySQLConnection? _connection;
+  MySQLConnection? connection;
 
   MySqlService({this.config = const MySqlConfig()});
 
-  Future<MySQLConnection> _connect() async {
-    if (_connection != null && _connection!.connected) {
-      return _connection!;
+  /// Ouvre ou réutilise une connexion MySQL et vérifie que la table des réservations existe.
+Future<MySQLConnection> connect() async {
+    if (connection != null && connection!.connected) {
+      return connection!;
     }
 
     try {
@@ -55,9 +56,11 @@ class MySqlService implements DatabaseBookingStorage {
         password: config.password,
         databaseName: config.databaseName,
       );
-      await connection.connect(timeoutMs: config.connectionTimeout.inMilliseconds);
-      _connection = connection;
-      await _ensureTableExists(connection);
+      await connection.connect(
+        timeoutMs: config.connectionTimeout.inMilliseconds,
+      );
+      connection = connection;
+      await ensureTableExists(connection);
       return connection;
     } on TimeoutException catch (e) {
       throw DatabaseTimeoutException(e.toString());
@@ -79,7 +82,8 @@ class MySqlService implements DatabaseBookingStorage {
     }
   }
 
-  Future<void> _ensureTableExists(MySQLConnection connection) async {
+  /// Crée la table `reservations` si elle n'existe pas encore sur la base cible.
+Future<void> ensureTableExists(MySQLConnection connection) async {
     try {
       await connection.execute('''
         CREATE TABLE IF NOT EXISTS reservations (
@@ -100,8 +104,9 @@ class MySqlService implements DatabaseBookingStorage {
   }
 
   @override
-  Future<void> saveBooking(Booking booking) async {
-    final connection = await _connect();
+  /// Insère une réservation dans la table MySQL `reservations` avec des paramètres liés.
+Future<void> saveBooking(Booking booking) async {
+    final connection = await connect();
 
     try {
       await connection.execute(
@@ -130,8 +135,9 @@ class MySqlService implements DatabaseBookingStorage {
   }
 
   @override
-  Future<void> close() async {
-    await _connection?.close();
-    _connection = null;
+  /// Ferme proprement la connexion MySQL active et réinitialise sa référence.
+Future<void> close() async {
+    await connection?.close();
+    connection = null;
   }
 }

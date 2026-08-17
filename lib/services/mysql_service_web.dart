@@ -19,12 +19,14 @@ class MySqlService implements DatabaseBookingStorage {
   MySqlService();
 
   @override
-  Future<void> saveBooking(Booking booking) async {
+  /// Signale que la sauvegarde MySQL directe n'est pas disponible dans un navigateur.
+Future<void> saveBooking(Booking booking) async {
     throw const DatabaseUnavailableOnWebException();
   }
 
   @override
-  Future<void> close() async {
+  /// Effectue une fermeture sans opération, car aucune connexion MySQL n'est ouverte sur le web.
+Future<void> close() async {
     // Rien à fermer : aucune connexion n'est jamais ouverte sur le web.
   }
 }

@@ -4,6 +4,7 @@ import 'router/app_router.dart';
 import 'state/app_state.dart';
 import 'theme/app_theme.dart';
 
+/// Initialise l'application Flutter et injecte l'état global avant l'affichage de l'interface.
 void main() {
   runApp(const DonsinAirportApp());
 }
@@ -15,7 +16,8 @@ class DonsinAirportApp extends StatelessWidget {
   const DonsinAirportApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  /// Construit la racine de l'application avec le thème courant et le routeur principal.
+Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => AppState(),
       child: Consumer<AppState>(

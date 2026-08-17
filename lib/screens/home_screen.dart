@@ -12,6 +12,7 @@ import '../widgets/flight_card.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  /// Crée l'état mutable associé à l'écran d'accueil.
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -21,15 +22,17 @@ class _HomeScreenState extends State<HomeScreen> {
   String _query = '';
   String _selectedFilter = 'Tous';
 
-  static const _filters = ['Tous', 'Départ', 'Arrivée'];
+  static const filters = ['Tous', 'Départ', 'Arrivée'];
 
   @override
-  void dispose() {
+  /// Libère le contrôleur de recherche lorsque l'écran est détruit.
+void dispose() {
     _searchController.dispose();
     super.dispose();
   }
 
-  List<Flight> _filter(List<Flight> flights) {
+  /// Filtre la liste des vols selon le texte recherché et le type de vol sélectionné.
+List<Flight> filter(List<Flight> flights) {
     return flights.where((f) {
       final q = _query.toLowerCase();
       final matchesQuery = f.flightNumber.toLowerCase().contains(q) ||
@@ -43,9 +46,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  /// Construit l'écran d'accueil avec recherche, filtres et grille responsive des vols.
+Widget build(BuildContext context) {
     final appState = context.watch<AppState>();
-    final filtered = _filter(appState.allFlights);
+    final filtered = filter(appState.allFlights);
 
     return Scaffold(
       appBar: AppBar(
@@ -86,10 +90,10 @@ class _HomeScreenState extends State<HomeScreen> {
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-              itemCount: _filters.length,
+              itemCount: filters.length,
               separatorBuilder: (_, __) => const SizedBox(width: 8),
               itemBuilder: (context, index) {
-                final filter = _filters[index];
+                final filter = filters[index];
                 final selected = filter == _selectedFilter;
                 return ChoiceChip(
                   label: Text(filter),

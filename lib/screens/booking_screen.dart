@@ -21,6 +21,7 @@ class BookingScreen extends StatefulWidget {
 
   const BookingScreen({super.key, this.preselectedFlight});
 
+  /// Crée l'état mutable associé au formulaire de réservation.
   @override
   State<BookingScreen> createState() => _BookingScreenState();
 }
@@ -53,7 +54,8 @@ class _BookingScreenState extends State<BookingScreen> {
   bool _isSubmitting = false;
 
   @override
-  void initState() {
+  /// Initialise les contrôleurs du formulaire et préremplit les champs lorsqu'un vol a été sélectionné.
+void initState() {
     super.initState();
     // Pré-remplissage à partir du vol sélectionné depuis l'écran de détail
     // (passage de paramètre via `extra` dans GoRouter), si présent et si
@@ -74,7 +76,8 @@ class _BookingScreenState extends State<BookingScreen> {
   }
 
   @override
-  void dispose() {
+  /// Libère les contrôleurs du formulaire afin d'éviter les fuites de ressources.
+void dispose() {
     _nomPassagerController.dispose();
     _emailController.dispose();
     _telephoneController.dispose();
@@ -112,7 +115,8 @@ class _BookingScreenState extends State<BookingScreen> {
     );
   }
 
-  Future<void> _submit() async {
+  /// Valide le formulaire, crée la réservation et lance sa sauvegarde dans les différents canaux configurés.
+Future<void> submit() async {
     if (!_formKey.currentState!.validate()) return;
 
     setState(() => _isSubmitting = true);
@@ -150,7 +154,8 @@ class _BookingScreenState extends State<BookingScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  /// Construit le formulaire complet de réservation et ses contrôles de validation.
+Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Réserver un vol'),
@@ -284,7 +289,7 @@ class _BookingScreenState extends State<BookingScreen> {
             ),
             const SizedBox(height: 24),
             FilledButton.icon(
-              onPressed: _isSubmitting ? null : _submit,
+              onPressed: _isSubmitting ? null : submit,
               icon: _isSubmitting
                   ? const SizedBox(
                       width: 18,

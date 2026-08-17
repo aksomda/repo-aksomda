@@ -9,13 +9,15 @@ class MainScaffold extends StatelessWidget {
 
   const MainScaffold({super.key, required this.child});
 
-  int _indexFromLocation(String location) {
+  /// Détermine l'onglet actif à partir de l'URL courante de la navigation.
+int indexFromLocation(String location) {
     if (location.startsWith('/tracked')) return 1;
     if (location.startsWith('/settings')) return 2;
     return 0;
   }
 
-  void _onTap(BuildContext context, int index) {
+  /// Navigue vers l'écran correspondant à l'onglet sélectionné dans la barre de navigation.
+void onTap(BuildContext context, int index) {
     switch (index) {
       case 0:
         context.go('/');
@@ -30,15 +32,16 @@ class MainScaffold extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  /// Construit la structure commune des écrans principaux avec leur barre de navigation persistante.
+Widget build(BuildContext context) {
     final location = GoRouterState.of(context).uri.toString();
-    final currentIndex = _indexFromLocation(location);
+    final currentIndex = indexFromLocation(location);
 
     return Scaffold(
       body: child,
       bottomNavigationBar: NavigationBar(
         selectedIndex: currentIndex,
-        onDestinationSelected: (index) => _onTap(context, index),
+        onDestinationSelected: (index) => onTap(context, index),
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.flight),

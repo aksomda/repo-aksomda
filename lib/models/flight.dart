@@ -43,10 +43,12 @@ enum FlightType { depart, arrivee }
 enum FlightStatus { aLHeure, retarde, embarquement, decolle, annule }
 
 extension FlightTypeLabel on FlightType {
+  /// Retourne le libellé français correspondant au type de vol.
   String get label => this == FlightType.depart ? 'Départ' : 'Arrivée';
 }
 
 extension FlightStatusLabel on FlightStatus {
+  /// Retourne le libellé français correspondant au statut du vol.
   String get label {
     switch (this) {
       case FlightStatus.aLHeure:
@@ -62,6 +64,7 @@ extension FlightStatusLabel on FlightStatus {
     }
   }
 
+  /// Retourne la couleur d'affichage associée au statut du vol.
   Color get color {
     switch (this) {
       case FlightStatus.aLHeure:

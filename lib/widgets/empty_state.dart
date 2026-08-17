@@ -9,7 +9,8 @@ class EmptyState extends StatelessWidget {
   const EmptyState({super.key, required this.icon, required this.message});
 
   @override
-  Widget build(BuildContext context) {
+  /// Construit le composant visuel affiché lorsqu'une liste ne contient aucun résultat.
+Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Center(
       child: Column(

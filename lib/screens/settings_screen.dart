@@ -10,7 +10,8 @@ class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  /// Construit l'écran des réglages et affiche les statistiques principales de l'application.
+Widget build(BuildContext context) {
     final appState = context.watch<AppState>();
 
     return Scaffold(
